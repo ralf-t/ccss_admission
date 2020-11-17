@@ -16,14 +16,29 @@ def results_lrn():
 
 @app.route("/login")
 def login():
+	#editorssss
+	#editorssss
+	#editorssss
+	#editorssss
+	#editorssss
+	#editorssss
+
 	return render_template('login.html')
 
 @app.route("/admin")
 def admin():
+	#editorssss
+	#editorssss
+	#editorssss
+	#editorssss
+	#editorssss
+	#editorssss
+
 	return render_template('admin.html')
 
 @app.route("/admin/applicant/id")
 def applicant():
+	#editorssss
 	return render_template('applicant.html')
 
 @app.route("/admin/applicant/id")

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>UE CCSS Admission</title>
+		<link rel="stylesheet" href="{{url_for('static',filename='bulma.min.css')}}">
+		<link rel="stylesheet" href="{{url_for('static',filename='base.css')}}">
+		<script src="{{url_for('static',filename='jquery-3.5.1.min.js')}}"></script>
+		<script src="{{url_for('static',filename='bulma.js')}}"></script>		
+	</head>
+
+	<body>
+		<nav class="navbar has-shadow" role="navigation" aria-label="main navigation">
+		  <div class="container">
+		  <div class="navbar-brand">
+		    <a class="navbar-item" href="{{url_for('apply')}}">
+		      <img src="{{url_for('static',filename='ccss.gif')}}" width="28" height="28"> 
+		    </a>
+
+		    <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="mainNav">
+		      <span aria-hidden="true"></span>
+		      <span aria-hidden="true"></span>
+		      <span aria-hidden="true"></span>
+		    </a>
+		  </div>
+
+		  <div id="mainNav" class="navbar-menu">
+		    <div class="navbar-end">
+		      <div class="navbar-item">
+		        <div class="buttons">
+		          <a class="button is-primary" href="{{url_for('apply')}}">
+		            <strong>Apply</strong>
+		          </a>
+		          <a class="button is-light" href="{{url_for('results')}}">
+		            Results
+		          </a>
+		        </div>
+		      </div>
+		    </div>
+		  </div>
+		  </div>
+		</nav>
+		<div class="container">
+			{% block content %}
+
+			{% endblock content %}
+		</div>
+	</body>
+</html>

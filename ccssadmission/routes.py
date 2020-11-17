@@ -8,6 +8,7 @@ def apply():
 
 @app.route("/results")
 def results():
+	#edit
 	return render_template('results.html')
 
 @app.route("/results/lrn")
@@ -28,4 +29,5 @@ def applicant():
 
 @app.route("/admin/applicant/id")
 def applicant_edit():
+	#edit
 	return render_template('applicant_edit.html')

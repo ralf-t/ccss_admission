@@ -20,7 +20,7 @@ Part 1 (Project Setup):
 5) go to http://localhost:5000/
 	-it should show the navbar
 
-6) to stop running server press CTRL + C
+6) to stop running server press CTRL + C in the cmd
 
 7) to exit virtual environemnt, make sure server has stopped running then type in same cmd:
 	-exit

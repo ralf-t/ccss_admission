@@ -11,7 +11,7 @@
 						<div class="field">
 						  	<label class="label">LRN</label>
 							<div class="control">
-								<input class="input" type="text" placeholder="e.g. 20191234567">
+								<input class="input"d type="text" placeholder="e.g. 20191234567">
 						  	</div>
 						</div>
 						<div class="field">
@@ -31,22 +31,10 @@
 							<div class="control is-expanded">
 							  	<div class="select is-fullwidth">
 							    	<select>
-							      		<option>Select average</option>
-							      		<option>85</option>
-							      		<option>86</option>
-							      		<option>87</option>
-							      		<option>88</option>
-							      		<option>89</option>
-							      		<option>90</option>
-							      		<option>91</option>
-							      		<option>92</option>
-							      		<option>93</option>
-							      		<option>94</option>
-							      		<option>95</option>
-							      		<option>96</option>
-							      		<option>97</option>
-							      		<option>98</option>
-							      		<option>99</option>
+							      		<option value="empty">Select average</option>
+							      		{% for i in range(85, 100) %}
+							      		<option value="{{ i }}">{{ i }}</option>
+							      		{% endfor %}
 							    	</select>
 							  	</div>
 							</div>
@@ -62,24 +50,24 @@
 							  	<div class="column is-half pt-0">
 									<div class="select is-fullwidth">
 									 	<select>
-									   		<option>Select course</option>
-									   		<option>BSCS</option>
-									   		<option>BSEMC-GD</option>
-									   		<option>BSEMC-DA</option>
-									   		<option>BSIS</option>
-									   		<option>BSIT</option>
+									   		<option value="empty">Select course</option>
+									   		<option value="BSCS">BSCS</option>
+									   		<option value="GD">BSEMC-GD</option>
+									   		<option value="DA">BSEMC-DA</option>
+									   		<option value="BSIS">BSIS</option>
+									   		<option value="BSIT">BSIT</option>
 									 	</select>
 									</div>
 								</div>
 							  	<div class="column is-half pt-0">
 							  		<div class="select is-fullwidth">
 							  		 	<select>
-							  		   		<option>Select course</option>
-							  		   		<option>BSCS</option>
-							  		   		<option>BSEMC-GD</option>
-							  		   		<option>BSEMC-DA</option>
-							  		   		<option>BSIS</option>
-							  		   		<option>BSIT</option>
+							  		   		<option value="empty">Select course</option>
+							  		   		<option value="BSCS">BSCS</option>
+							  		   		<option value="GD">BSEMC-GD</option>
+							  		   		<option value="DA">BSEMC-DA</option>
+							  		   		<option value="BSIS">BSIS</option>
+							  		   		<option value="BSIT">BSIT</option>
 							  		 	</select>
 							  		</div>
 							  	</div>
@@ -88,7 +76,7 @@
 				
 						<div class="field pt-5">
 						  	<p class="control">
-						    	<button class="button is-primary is-fullwidth">
+						    	<button class="button is-primary is-fullwidth" href="#">
 						      		Submit
 						    	</button>
 						  	</p>

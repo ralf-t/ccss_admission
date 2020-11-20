@@ -1,5 +1,91 @@
 {% extends 'base.html' %}
 
 {% block content %}
-	CONTENT HERE
+	<div class="columns">
+		<div class="column is-offset-4 is-4">
+			<div class="box mt-5">
+				<div class="container">
+					<h1 class="title has-text-centered">Application Form</h1>
+				
+					<div class="container">
+						<form action="" method="POST">
+							<div class="field">
+							  	<label class="label">LRN</label>
+								<div class="control">
+									<input class="input"d type="text" placeholder="e.g. 20191234567">
+							  	</div>
+							</div>
+							<div class="field">
+							  	<label class="label">Last Name</label>
+								<div class="control">
+									<input class="input" type="text" placeholder="e.g. Dela Cruz">
+							  	</div>
+							</div>
+							<div class="field">
+							  	<label class="label">First Name</label>
+								<div class="control">
+									<input class="input" type="text" placeholder="e.g. Juan">
+							  	</div>
+							</div>
+							<div class="field">
+							  	<label class="label">SHS Average Grade</label>
+								<div class="control is-expanded">
+								  	<div class="select is-fullwidth">
+								    	<select>
+								      		<option value="empty">Select average</option>
+								      		{% for i in range(85, 100) %}
+								      		<option value="{{ i }}">{{ i }}</option>
+								      		{% endfor %}
+								    	</select>
+								  	</div>
+								</div>
+							</div>
+											
+							<div class="columns" style="margin-bottom: 8px">
+								<div class="column"><h1 class="label">Priority Choice</h1></div>
+								<div class="column"><h1 class="label">Second Choice</h1></div>
+							</div>
+											
+							<fieldset>
+								<div class="columns is-multiline">
+								  	<div class="column is-half pt-0">
+										<div class="select is-fullwidth">
+										 	<select>
+										   		<option value="empty">Select course</option>
+										   		<option value="BSCS">BSCS</option>
+										   		<option value="GD">BSEMC-GD</option>
+										   		<option value="DA">BSEMC-DA</option>
+										   		<option value="BSIS">BSIS</option>
+										   		<option value="BSIT">BSIT</option>
+										 	</select>
+										</div>
+									</div>
+								  	<div class="column is-half pt-0">
+								  		<div class="select is-fullwidth">
+								  		 	<select>
+								  		   		<option value="empty">Select course</option>
+								  		   		<option value="BSCS">BSCS</option>
+								  		   		<option value="GD">BSEMC-GD</option>
+								  		   		<option value="DA">BSEMC-DA</option>
+								  		   		<option value="BSIS">BSIS</option>
+								  		   		<option value="BSIT">BSIT</option>
+								  		 	</select>
+								  		</div>
+								  	</div>
+								</div>
+							</fieldset>
+											
+							<div class="field pt-5">
+							  	<p class="control">
+							    	<button class="button is-primary is-fullwidth" type="submit">
+							      		Submit
+							    	</button>
+							  	</p>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 {% endblock content %}

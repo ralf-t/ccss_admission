@@ -1,7 +1,7 @@
 from flask import render_template, url_for, redirect, request
 from ccssadmission import app, current_user
 
-@app.route("/")
+@app.route("/",methods=["GET","POST"])
 @app.route("/apply",methods=["GET","POST"])
 def apply():
 	#edit

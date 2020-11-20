@@ -1,0 +1,5 @@
+html {
+	height: 100%;
+	background-image: linear-gradient(180deg, white,white,white,#00d1b2);
+	background-attachment: fixed;
+}

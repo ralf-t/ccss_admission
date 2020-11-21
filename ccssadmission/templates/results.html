@@ -1,11 +1,18 @@
 {% extends 'base.html' %}
 
 {% block content %}
-	<div class="control">
-		<form action="" method="POST">
-		 	<br>
-  				<input class="input" d type="text" placeholder="Enter your LRN"><input type="button" value="Get result">
-  			</br>
-  		</form>
-	</div>
+	<section class="hero is-primary">
+		<div class="hero-body is button is-white">
+			<div class="field has-addons">
+				<div class="control">
+  					<input class="input" type="text" placeholder="Enter your LRN">
+  				</div>
+  				<div class="control">
+  					<a class="button is-primary">
+  						Get result
+  					</a>
+  				</div>
+			</div>
+		</div>
+	</section>
 {% endblock content %}

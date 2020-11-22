@@ -1,18 +1,20 @@
 {% extends 'base.html' %}
 
 {% block content %}
-	<section class="hero is-primary">
-		<div class="hero-body is button is-white">
-			<div class="field has-addons">
+	<section class="hero is-primary"> <!-- add is-medium to class -->
+		<div class="hero-body is button is-white"> <!-- remove is button is-white-->
+			<!-- enclose in <form method="POST" action="#"-->
+			<div class="field has-addons">  <!-- add is-justify-content-center to class -->
 				<div class="control">
-  					<input class="input" type="text" placeholder="Enter your LRN">
+  					<input class="input" type="text" placeholder="Enter your LRN"> <!-- add is-large to class, add data required attribute para pag nag submit ng walang input, magwawarning -->
   				</div>
   				<div class="control">
-  					<a class="button is-primary">
+  					<a class="button is-light"> <!-- turn this button to <input> submit type and make the color is-light, add is-large to class -->
   						Get result
   					</a>
   				</div>
 			</div>
+			<!-- </form> -->
 		</div>
 	</section>
 {% endblock content %}

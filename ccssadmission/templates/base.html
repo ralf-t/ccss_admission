@@ -44,17 +44,13 @@
 
 
 		<div class="container">
-			<!-- {% if errors %}
+			{% if errors %}
 				{% for error in errors %}
-					{{error}}
+					<div class="notification is-danger is-light my-3">
+						{{error}}
+					</div>
 				{% endfor %}
-			{% endif %} -->
-				<div class="notification is-danger is-light my-3">
-					This error will appear on invalid actions.
-				</div>
-				<div class="notification is-danger is-light my-3">
-					Your pages shall not interfere with this notification.
-				</div>
+			{% endif %}
 
 			{% block content %}
 

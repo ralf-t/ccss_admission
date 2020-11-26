@@ -1,6 +1,18 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<!--  -->
+
+{{ query }} <!-- accessing varible returned by return statement -->
+
+<p>-------------------------</p>
+
+{% for q in query %} <!-- iterating through the tuple -->
+	<p>{{q}}</p>
+{% endfor %}
+
+
+<!--  -->
 	<div class="columns">
 		<div class="column is-offset-4 is-4">
 			<div class="box mt-5">
@@ -12,19 +24,19 @@
 							<div class="field">
 							  	<label class="label">LRN</label>
 								<div class="control">
-									<input class="input" type="text" placeholder="e.g. 20191234567">
+									<input class="input" type="text" placeholder="e.g. 20191234567" value="{{query[1]}}">
 							  	</div>
 							</div>
 							<div class="field">
 							  	<label class="label">Last Name</label>
 								<div class="control">
-									<input class="input" type="text" placeholder="e.g. Dela Cruz">
+									<input class="input" type="text" placeholder="e.g. Dela Cruz" value="{{query[2]}}">
 							  	</div>
 							</div>
 							<div class="field">
 							  	<label class="label">First Name</label>
 								<div class="control">
-									<input class="input" type="text" placeholder="e.g. Juan">
+									<input class="input" type="text" placeholder="e.g. Juan" value="{{query[3]}}">
 							  	</div>
 							</div>
 							<div class="field">
@@ -35,7 +47,11 @@
 								      		<option>Select average</option>
 								    		{% for i in range(85,100) %}
 								      			<!-- SELECTED if equal-->
-								      			<option value="{{i}}">{{i}}</option>
+								      			{% if i == query[4] %}
+								      				<option value="{{i}}" selected>{{i}}</option>
+								      			{% else %}
+								      				<option value="{{i}}">{{i}}</option>
+								      			{% endif %}
 								      		{% endfor %}
 								    	</select>
 								  	</div>
@@ -52,26 +68,28 @@
 								  	<div class="column is-half pt-0">
 										<div class="select is-fullwidth">
 										 	<select>
-										 		<!-- SELECTED -->
-										   		<option>Select course</option>
-										   		<option>BSCS</option>
-										   		<option>BSEMC-GD</option>
-										   		<option>BSEMC-DA</option>
-										   		<option>BSIS</option>
-										   		<option>BSIT</option>
+										 		<option>Select course</option>
+										 		{% for course in courses %} 
+													{% if course[0] == query[6] %}
+								      					<option value="{{course[1]}}" selected>{{course[1]}}</option>
+									      			{% else %}
+									      				<option value="{{course[1]}}">{{course[1]}}</option>
+								      				{% endif %}
+												{% endfor %}
 										 	</select>
 										</div>
 									</div>
 								  	<div class="column is-half pt-0">
 								  		<div class="select is-fullwidth">
 								  		 	<select>
-								  		 		<!-- SELECTED -->
-								  		   		<option>Select course</option>
-								  		   		<option>BSCS</option>
-								  		   		<option>BSEMC-GD</option>
-								  		   		<option>BSEMC-DA</option>
-								  		   		<option>BSIS</option>
-								  		   		<option>BSIT</option>
+								  		 		<option>Select course</option>
+										 		{% for course in courses %} 
+													{% if course[0] == query[7] %}
+								      					<option value="{{course[1]}}" selected>{{course[1]}}</option>
+									      			{% else %}
+									      				<option value="{{course[1]}}">{{course[1]}}</option>
+								      				{% endif %}
+												{% endfor %}
 								  		 	</select>
 								  		</div>
 								  	</div>
@@ -82,11 +100,14 @@
 								<div class="control is-expanded">
 								  	<div class="select is-fullwidth">
 								    	<select>
-								      		<option selected>Applied</option>
-								      		<option>Admitted</option>
-								      		<option>Waitlisted</option>
-								      		<option>Godbless</option>
-								      
+								    		{% set statuses = ['Applied','Admitted','Waitlisted','Godbless'] %}
+								      		{% for status in statuses %} 
+												{% if status[0] == query[5] %}
+							      					<option value="{{status}}" selected>{{status}}</option>
+								      			{% else %}
+								      				<option value="{{status}}">{{status}}</option>
+							      				{% endif %}
+											{% endfor %}
 								    	</select>
 								  	</div>
 								</div>

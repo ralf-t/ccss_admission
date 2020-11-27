@@ -52,6 +52,12 @@
 				{% endfor %}
 			{% endif %}
 
+			{% if success %}
+				<div class="notification is-success is-light my-3">
+					{{success}}
+				</div>
+			{% endif %}
+
 			{% block content %}
 
 			{% endblock content %}

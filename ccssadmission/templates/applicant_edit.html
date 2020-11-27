@@ -1,18 +1,6 @@
 {% extends 'base.html' %}
 
-{% block content %}
-<!--  -->
-
-{{ query }} <!-- accessing varible returned by return statement -->
-
-<p>-------------------------</p>
-
-{% for q in query %} <!-- iterating through the tuple -->
-	<p>{{q}}</p>
-{% endfor %}
-
-
-<!--  -->
+{% block content %} 
 	<div class="columns">
 		<div class="column is-offset-4 is-4">
 			<div class="box mt-5">
@@ -24,26 +12,26 @@
 							<div class="field">
 							  	<label class="label">LRN</label>
 								<div class="control">
-									<input class="input" type="text" placeholder="e.g. 20191234567" value="{{query[1]}}">
+									<input class="input" type="text" placeholder="e.g. 20191234567" name="lrn" value="{{query[1]}}" maxlength="11" required>
 							  	</div>
 							</div>
 							<div class="field">
 							  	<label class="label">Last Name</label>
 								<div class="control">
-									<input class="input" type="text" placeholder="e.g. Dela Cruz" value="{{query[2]}}">
+									<input class="input" type="text" placeholder="e.g. Dela Cruz" name="last_name" value="{{query[3]}}" required>
 							  	</div>
 							</div>
 							<div class="field">
 							  	<label class="label">First Name</label>
 								<div class="control">
-									<input class="input" type="text" placeholder="e.g. Juan" value="{{query[3]}}">
+									<input class="input" type="text" placeholder="e.g. Juan" name="first_name" value="{{query[2]}}" required>
 							  	</div>
 							</div>
 							<div class="field">
 							  	<label class="label">SHS Average Grade</label>
 								<div class="control is-expanded">
 								  	<div class="select is-fullwidth">
-								    	<select>
+								    	<select name="shs_avg">
 								      		<option>Select average</option>
 								    		{% for i in range(85,100) %}
 								      			<!-- SELECTED if equal-->
@@ -67,13 +55,12 @@
 								<div class="columns is-multiline">
 								  	<div class="column is-half pt-0">
 										<div class="select is-fullwidth">
-										 	<select>
-										 		<option>Select course</option>
+										 	<select name="first_course_id">
 										 		{% for course in courses %} 
 													{% if course[0] == query[6] %}
-								      					<option value="{{course[1]}}" selected>{{course[1]}}</option>
+								      					<option value="{{course[0]}}" selected>{{course[1]}}</option>
 									      			{% else %}
-									      				<option value="{{course[1]}}">{{course[1]}}</option>
+									      				<option value="{{course[0]}}">{{course[1]}}</option>
 								      				{% endif %}
 												{% endfor %}
 										 	</select>
@@ -81,13 +68,13 @@
 									</div>
 								  	<div class="column is-half pt-0">
 								  		<div class="select is-fullwidth">
-								  		 	<select>
+								  		 	<select name="second_course_id">
 								  		 		<option>Select course</option>
 										 		{% for course in courses %} 
 													{% if course[0] == query[7] %}
-								      					<option value="{{course[1]}}" selected>{{course[1]}}</option>
+								      					<option value="{{course[0]}}" selected>{{course[1]}}</option>
 									      			{% else %}
-									      				<option value="{{course[1]}}">{{course[1]}}</option>
+									      				<option value="{{course[0]}}">{{course[1]}}</option>
 								      				{% endif %}
 												{% endfor %}
 								  		 	</select>
@@ -99,10 +86,10 @@
 							  	<label class="label">Status</label>
 								<div class="control is-expanded">
 								  	<div class="select is-fullwidth">
-								    	<select>
+								    	<select name="status">
 								    		{% set statuses = ['Applied','Admitted','Waitlisted','Godbless'] %}
 								      		{% for status in statuses %} 
-												{% if status[0] == query[5] %}
+												{% if status == query[5] %}
 							      					<option value="{{status}}" selected>{{status}}</option>
 								      			{% else %}
 								      				<option value="{{status}}">{{status}}</option>

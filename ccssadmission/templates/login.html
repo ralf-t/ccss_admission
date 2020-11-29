@@ -6,24 +6,24 @@
 		<div class="box mt-5">
 			<div class="container">
 				<h1 class="title has-text-centered">Login</h1>
-			
 				<div class="container">
-					<form action="#" method="POST">
+					<form action="/login" method="POST">
 						<div class="field">
 							<label class="label">Username</label>
 							<div class="control">
-								<input class="input" type="text" placeholder="" required>
+								<input class="input" type="text" name="username" placeholder="" required>
 							</div>
 						</div>
 						<div class="field">
 							<label class="label">Password</label>
 							<div class="control">
-								<input class="input" type="password" placeholder="" required>
+								<input class="input" type="password" name="password" placeholder="" required>
 							</div>
 						</div>
+						
 						<div class="field pt-5">
 							<p class="control">
-								<input type="submit" class="button is-primary is-fullwidth" value="Search">
+								<input type="submit" class="button is-primary is-fullwidth" value="Submit">
 							</p>
 						</div>
 					</form>

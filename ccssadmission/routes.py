@@ -15,10 +15,10 @@ def apply():
 	if request.method == 'POST':
 		lrn = request.form['lrn']
 		lastName = request.form['lastName']
-		firstName = request.form['firstName']
-		avgGrade = request.form['avgGrade']
-		priorityChoice = request.form['priorityChoice']
-		secondChoice = request.form['secondChoice'] if request.form['secondChoice'] != 'empty' else None
+		first_name = request.form['firstName']
+		shs_avg = request.form['avgGrade']
+		first_course_id = request.form['priorityChoice']
+		second_course_id = request.form['secondChoice'] if request.form['secondChoice'] != 'empty' else None
 
 		#check duplicate lrn
 		with conn:	
@@ -29,7 +29,7 @@ def apply():
 				errors.append('LRN is registered by another applicant')
 
 			if not errors: #if LRN is unique, save data into db
-				c.execute("INSERT INTO Applicant (lrn, first_name, last_name, shs_avg, first_course_id, second_course_id)VALUES (?, ?, ?, ?, ?, ?)", (lrn, firstName, lastName, avgGrade, priorityChoice, secondChoice))
+				c.execute("INSERT INTO Applicant (lrn, first_name, last_name, shs_avg, first_course_id, second_course_id)VALUES (?, ?, ?, ?, ?, ?)", (lrn, first_name, lastName, shs_avg, first_course_id, second_course_id))
 				success = ("Congratulations! You have successfully been applied.")
 
 	return render_template('apply.html', errors=errors, success=success)

@@ -6,8 +6,33 @@ import sqlite3
 @app.route("/",methods=["GET","POST"])
 @app.route("/apply",methods=["GET","POST"])
 def apply():
-	#edit
-	return render_template('apply.html')
+	conn = sqlite3.connect(app.config['SQLITE3_DATABASE_URI']) #creating the connecting object
+	c = conn.cursor() #setting cursor
+
+	errors = []
+	success = None
+
+	if request.method == 'POST':
+		lrn = request.form['lrn']
+		lastName = request.form['lastName']
+		firstName = request.form['firstName']
+		avgGrade = request.form['avgGrade']
+		priorityChoice = request.form['priorityChoice']
+		secondChoice = request.form['secondChoice'] if request.form['secondChoice'] != 'empty' else None
+
+		#check duplicate lrn
+		with conn:	
+			c.execute("pragma foreign_keys=ON") #important to enforce FK constraints
+			
+			c.execute("select * from Applicant where lrn=?", (lrn,))
+			if c.fetchone(): #if there is existing student with same LRN, return error
+				errors.append('LRN is registered by another applicant')
+
+			if not errors: #if LRN is unique, save data into db
+				c.execute("INSERT INTO Applicant (lrn, first_name, last_name, shs_avg, first_course_id, second_course_id)VALUES (?, ?, ?, ?, ?, ?)", (lrn, firstName, lastName, avgGrade, priorityChoice, secondChoice))
+				success = ("Congratulations! You have successfully been applied.")
+
+	return render_template('apply.html', errors=errors, success=success)
 
 @app.route("/results",methods=["GET","POST"])
 def results():

@@ -12,26 +12,26 @@
 							<div class="field">
 							  	<label class="label">LRN</label>
 								<div class="control">
-									<input class="input"d type="text" placeholder="e.g. 20191234567" maxlength="11">
+									<input class="input" type="text" name="lrn" placeholder="e.g. 20191234567" maxlength="11">
 							  	</div>
 							</div>
 							<div class="field">
 							  	<label class="label">Last Name</label>
 								<div class="control">
-									<input class="input" type="text" placeholder="e.g. Dela Cruz">
+									<input class="input" type="text" name="lastName" placeholder="e.g. Dela Cruz">
 							  	</div>
 							</div>
 							<div class="field">
 							  	<label class="label">First Name</label>
 								<div class="control">
-									<input class="input" type="text" placeholder="e.g. Juan">
+									<input class="input" type="text" name="firstName" placeholder="e.g. Juan">
 							  	</div>
 							</div>
 							<div class="field">
 							  	<label class="label">SHS Average Grade</label>
 								<div class="control is-expanded">
 								  	<div class="select is-fullwidth">
-								    	<select>
+								    	<select name="avgGrade">
 								      		<option value="empty">Select average</option>
 								      		{% for i in range(85, 100) %}
 								      		<option value="{{ i }}">{{ i }}</option>
@@ -50,24 +50,24 @@
 								<div class="columns is-multiline">
 								  	<div class="column is-half pt-0">
 										<div class="select is-fullwidth">
-										 	<select>
-										   		<option value="BSCS">BSCS</option>
-										   		<option value="GD">BSEMC-GD</option>
-										   		<option value="DA">BSEMC-DA</option>
-										   		<option value="BSIS">BSIS</option>
-										   		<option value="BSIT">BSIT</option>
+										 	<select name="priorityChoice">
+										   		<option value="1">BSCS</option>
+										   		<option value="2">BSEMC-DA</option>
+										   		<option value="3">BSEMC-GD</option>
+										   		<option value="4">BSIS</option>
+										   		<option value="5">BSIT</option>
 										 	</select>
 										</div>
 									</div>
 								  	<div class="column is-half pt-0">
 								  		<div class="select is-fullwidth">
-								  		 	<select>
+								  		 	<select name="secondChoice">
 								  		   		<option value="empty">Select course</option>
-								  		   		<option value="BSCS">BSCS</option>
-								  		   		<option value="GD">BSEMC-GD</option>
-								  		   		<option value="DA">BSEMC-DA</option>
-								  		   		<option value="BSIS">BSIS</option>
-								  		   		<option value="BSIT">BSIT</option>
+								  		   		<option value="1">BSCS</option>
+								  		   		<option value="2">BSEMC-DA</option>
+								  		   		<option value="3">BSEMC-GD</option>
+								  		   		<option value="4">BSIS</option>
+								  		   		<option value="5">BSIT</option>
 								  		 	</select>
 								  		</div>
 								  	</div>

@@ -1,11 +1,13 @@
 {% extends 'base.html' %}
 
 {% block content %}
+
+{% if applicant[5]=="Admitted" %}
 	<div class="column">
 		<div class="box" style="padding:0%">
 			<div class="container">
 				<div class="column is-offset-2">
-					LRN: XXXXXXXXXXX
+					LRN: {{applicant[1]}}
 				</div>
 			</div>
 			
@@ -15,7 +17,7 @@
 						<div class="column is-offset-2 is-5">
 							<h1 class="title">
 								<p style="font-size:50px">
-									<b>Admitted</b>
+									<b>{{applicant[5]}}</b>
 								</p>
 							</h1>
 						</div>
@@ -27,19 +29,150 @@
 				<div class="container">
 					<div class="column is-offset-2">
 						<p style="font-size:20px">
-							Congratulations, <b>LAST, FIRSTNAME</b> for passing the admissions.<br>
+							Congratulations, <b>{{applicant[3]}}, {{applicant[2]}}</b> for passing the admissions.<br>
 							You may enroll in any of your selected courses. See you soon, warrior!<br><br>
 		
 							Priority Choice:<br>
-							<b>COURSE</b>
+							<b>{{course1[1]}}</b>
 							<br><br>
 					
 							Second Choice:<br>
-							<b>COURSE</b>
+							<b>{{course2[1]}}</b>
 						</p>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+{% endif %}
+
+{% if applicant[5]=="Applied" %}
+	<div class="column">
+		<div class="box" style="padding:0%">
+			<div class="container">
+				<div class="column is-offset-2">
+					LRN: {{applicant[1]}}
+				</div>
+			</div>
+			
+			<section class="hero is-info">
+				<div class="hero-body">
+					<div class="container">
+						<div class="column is-offset-2 is-5">
+							<h1 class="title">
+								<p style="font-size:50px">
+									<b>{{applicant[5]}}</b>
+								</p>
+							</h1>
+						</div>
+					</div>
+				</div>
+			</section>	
+
+			<div>
+				<div class="container">
+					<div class="column is-offset-2">
+						<p style="font-size:20px">
+							Greetings, <b>{{applicant[3]}}, {{applicant[2]}}</b>!<br>
+							Your application is currently being processed, kindly wait for<br>
+							the results<br><br>
+		
+							Priority Choice:<br>
+							<b>{{course1[1]}}</b>
+							<br><br>
+					
+							Second Choice:<br>
+							<b>{{course2[1]}}</b>
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endif %}
+
+{% if applicant[5]=="Waitlisted" %}
+	<div class="column">
+		<div class="box" style="padding:0%">
+			<div class="container">
+				<div class="column is-offset-2">
+					LRN: {{applicant[1]}}
+				</div>
+			</div>
+			
+			<section class="hero is-warning">
+				<div class="hero-body">
+					<div class="container">
+						<div class="column is-offset-2 is-5">
+							<h1 class="title">
+								<p style="font-size:50px">
+									<b>{{applicant[5]}}</b>
+								</p>
+							</h1>
+						</div>
+					</div>
+				</div>
+			</section>	
+
+			<div>
+				<div class="container">
+					<div class="column is-offset-2">
+						<p style="font-size:20px">
+							Good News, <b>{{applicant[3]}}, {{applicant[2]}}</b>!<br>
+							Your application has passed the first screening.<br>
+							You are now on the waitlisted queue.<br><br>
+		
+							Priority Choice:<br>
+							<b>{{course1[1]}}</b>
+							<br><br>
+					
+							Second Choice:<br>
+							<b>{{course2[1]}}</b>
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endif %}
+
+{% if applicant[5]=="Godbless" %}
+	<div class="column">
+		<div class="box" style="padding:0%">
+			<div class="container">
+				<div class="column is-offset-2">
+					LRN: {{applicant[1]}}
+				</div>
+			</div>
+			
+			<section class="hero is-danger">
+				<div class="hero-body">
+					<div class="container">
+						<div class="column is-offset-2 is-5">
+							<h1 class="title">
+								<p style="font-size:50px">
+									<b>{{applicant[5]}}</b>
+								</p>
+							</h1>
+						</div>
+					</div>
+				</div>
+			</section>	
+
+			<div>
+				<div class="container">
+					<div class="column is-offset-2">
+						<p style="font-size:20px">
+							Thank You, <b>{{applicant[3]}}, {{applicant[2]}}</b> for applying.<br>
+							Unfortunately, you did not passed the deliberation, or ran out<br>
+							of slots for your selected course.<br>
+							We wish you luck on your future endeavors<br><br>
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endif %}
+
 {% endblock content %}

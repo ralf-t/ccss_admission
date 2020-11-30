@@ -1,14 +1,15 @@
 import sqlite3
 
 class CurrentUser:
-	self.username = None
-	self.db_uri = ['admissions.db']
-	self.conn = sqlite3.connect(self.db_uri)
-	self.c = self.conn.cursor()
 
-	def init(self,username=None):
-		with self.conn:
-			self.c.execute("delete from Session") #truncate table on every object instatiate
+	username = None
+
+	def __init__(self,username=None):
+		conn = sqlite3.connect('admissions.db')
+		c = conn.cursor()
+
+		with conn:
+			c.execute("delete from Session") #truncate table on every object instatiate
 
 		self.username = username
 		
@@ -16,28 +17,44 @@ class CurrentUser:
 			self.session_login()
 
 	def session_login(self):
-		with self.conn:
-			self.c.execute("insert into Session (username) values (?)",(self.username,)) #insert user
+		conn = sqlite3.connect('admissions.db')
+		c = conn.cursor()
+
+		with conn:
+			c.execute("insert into Session (username) values (?)",(self.username,)) #insert user
 
 	def session_logout(self):
-		with self.conn:
-			self.c.execute("delete from Session") #truncate table
+		conn = sqlite3.connect('admissions.db')
+		c = conn.cursor()
+
+		with conn:
+			c.execute("delete from Session") #truncate table
 
 	@staticmethod
 	def authenticate():
-		with self.conn:
-			self.c.execute("select username from Session where username = ?") 
+		conn = sqlite3.connect('admissions.db')
+		c = conn.cursor()
 
-		rows = self.c.fetchall() #grab rows
+		with conn:
+			c.execute("select username from Session") 
 
-		if len(rows) == 1: #if table is empty, no one is logged in
+		row = c.fetchone() #grab row
 
-			row = rows[0] #username index
-
-			if row[0] == self.username: #check if 
-				return True
-			else:
-				return False 
+		if row: #if table is empty, no one is logged in
+			return True
 		else:
 			return False
 
+# def login()
+# 	if CurrentUser.authenticate():
+# 		redir to admin	
+# 	redturn template
+
+# def logout():
+# 	CurrentUser.session_logout()
+
+# def admin/applicant_edit/delete():
+# 	if not CurrentUser.authenticate()
+# 		redir to login
+# 	return template
+# 	

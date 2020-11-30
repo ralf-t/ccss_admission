@@ -1,7 +1,9 @@
 from flask import render_template, url_for, redirect, request, abort
-from ccssadmission import app, current_user
-from ccssadmission.utils import authenticate, login, logout
+from ccssadmission import app
+from ccssadmission.utils import CurrentUser
 import sqlite3
+
+current_user = CurrentUser()
 
 @app.route("/",methods=["GET","POST"])
 @app.route("/apply",methods=["GET","POST"])
@@ -46,7 +48,17 @@ def results_lrn():
 
 @app.route("/login",methods=["GET","POST"])
 def login():
+
+	global current_user
+	if CurrentUser.authenticate():
+		return redirect(url_for('admin'))
+
 	errors = []
+	error = request.args.get('error')
+
+	if request.args.get('error'):
+		errors.append(error)
+
 	if request.method == 'POST':
 		username = request.form['username']
 		password = request.form['password']
@@ -58,13 +70,25 @@ def login():
 			user = c.fetchone()
 
 		if user:
-			return redirect("/admin")
+			global current_user
+			current_user = CurrentUser(user[0])
+			return redirect(url_for('admin',success=f'Welcome {user[0]} to the admin dashboard!'))
 		else:
 			errors = ['Invalid username or password']
 	return render_template('login.html',errors=errors)
 
+@app.route("/logout")
+def logout():	
+	current_user.session_logout()
+	return redirect(url_for('login'))
+
 @app.route("/admin",methods=["GET","POST"])
 def admin():
+
+	global current_user
+	if not CurrentUser.authenticate():
+		return redirect(url_for('login',error='Admin login required'))
+
 	conn = sqlite3.connect(app.config['SQLITE3_DATABASE_URI'])
 	c = conn.cursor()
 	if request.method == 'POST':
@@ -88,19 +112,15 @@ def admin():
 						left join course s
 						on s.id = a.second_course_id""")
 			rows = c.fetchall()
-			return render_template('admin.html', rows=rows)
+			return render_template('admin.html', rows=rows,success=request.args.get('success'))
 
 @app.route("/admin/applicant/edit/<int:applicant_id>",methods=["GET","POST"])
 def applicant_edit(applicant_id):
 	# <int:applicant_id> means we are getting a string value in our url and casting it to int
-	
-	#global current_user
 
-	#current_user = authenticate(request.args.get('admin')) if request.args.get('admin') else False
-	
-	#if not current_user:
-	#	return redirect(url_for('login',login_error="Please login to access admin dashboard"))
-	
+	global current_user
+	if not CurrentUser.authenticate():
+		return redirect(url_for('login'))
 
 	conn = sqlite3.connect(app.config['SQLITE3_DATABASE_URI']) #creating the connecting object
 	c = conn.cursor() #setting cursor
@@ -154,5 +174,9 @@ def applicant_edit(applicant_id):
 
 @app.route("/admin/applicant/delete/<int:applicant_id>",methods=["POST"])
 def applicant_delete(applicant_id):
-	return redirect(url_for('admin'))
 
+	global current_user
+	if not CurrentUser.authenticate():
+		return redirect(url_for('login'))
+
+	return redirect(url_for('admin'))

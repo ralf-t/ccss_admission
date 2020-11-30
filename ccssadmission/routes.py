@@ -63,7 +63,7 @@ def login():
 			errors = ['Invalid username or password']
 	return render_template('login.html',errors=errors)
 
-@app.route("/admin")
+@app.route("/admin",methods=["GET","POST"])
 def admin():
 	conn = sqlite3.connect(app.config['SQLITE3_DATABASE_URI'])
 	c = conn.cursor()
@@ -94,12 +94,12 @@ def admin():
 def applicant_edit(applicant_id):
 	# <int:applicant_id> means we are getting a string value in our url and casting it to int
 	
-	global current_user
+	#global current_user
 
-	current_user = authenticate(request.args.get('admin')) if request.args.get('admin') else False
+	#current_user = authenticate(request.args.get('admin')) if request.args.get('admin') else False
 	
-	if not current_user:
-		return redirect(url_for('login',login_error="Please login to access admin dashboard"))
+	#if not current_user:
+	#	return redirect(url_for('login',login_error="Please login to access admin dashboard"))
 	
 
 	conn = sqlite3.connect(app.config['SQLITE3_DATABASE_URI']) #creating the connecting object
@@ -148,7 +148,7 @@ def applicant_edit(applicant_id):
 	#passing din ng errors. see base.html to know how errors are displayed
 	#python handles variable scopes in a different way
 	if query: 
-		return render_template('applicant_edit.html',query=query,courses=courses,errors=errors,success=success,admin=current_user[3]) 
+		return render_template('applicant_edit.html',query=query,courses=courses,errors=errors,success=success) 
 	else:
 		return abort(404)
 

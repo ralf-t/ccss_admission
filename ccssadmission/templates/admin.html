@@ -46,9 +46,9 @@
 					<td>
 						<div class="level">
 							<div class="level-item">
-								<button class="button is-small">
+								<a href = "{{url_for('applicant_edit',applicant_id=row[0])}}" class="button is-small">
 									Edit
-								</button>
+								</a>
 						<div class="level-item ml-2">
 							<form action="" method="POST">
 								<input type="submit" class="button is-small" value="Delete">

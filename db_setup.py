@@ -8,10 +8,10 @@
 # write your own queries
 #
 
-from ccssadmission import app
+# from ccssadmission import app
 import sqlite3
 
-conn = sqlite3.connect(app.config['SQLITE3_DATABASE_URI'])
+conn = sqlite3.connect('admissions.db')
 
 c = conn.cursor()
 

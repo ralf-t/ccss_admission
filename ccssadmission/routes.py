@@ -46,28 +46,60 @@ def results_lrn():
 
 @app.route("/login",methods=["GET","POST"])
 def login():
-	#if may current user, pass the var to redriect pag logged in
-	#get login_erorr params
-	errors = [request.args['login_error']]
+	errors = []
+	if request.method == 'POST':
+		username = request.form['username']
+		password = request.form['password']
+		
+		conn = sqlite3.connect(app.config['SQLITE3_DATABASE_URI'])
+		c = conn.cursor() 
+		with conn:
+			c.execute("select username, password from Admin where username=? and password=?",(username,password))
+			user = c.fetchone()
 
+		if user:
+			return redirect("/admin")
+		else:
+			errors = ['Invalid username or password']
 	return render_template('login.html',errors=errors)
 
-@app.route("/admin")
+@app.route("/admin",methods=["GET","POST"])
 def admin():
-	#authenticate 
-	#logout
-	return render_template('admin.html')
+	conn = sqlite3.connect(app.config['SQLITE3_DATABASE_URI'])
+	c = conn.cursor()
+	if request.method == 'POST':
+		lrn = request.form['lrn']
+		with conn:
+			c.execute("""select a.id, a.lrn, a.first_name, a.last_name, a.shs_avg, a.status, f.name, s.name
+								from Applicant a 
+								left join course f
+								on f.id = a.first_course_id
+								left join course s
+								on s.id = a.second_course_id
+								where a.lrn=?""",(lrn,))
+			rows = c.fetchall()
+			return render_template('admin.html', rows=rows)		
+	else:	
+		with conn:
+			c.execute("""select a.id, a.lrn, a.first_name, a.last_name, a.shs_avg, a.status, f.name, s.name
+						from Applicant a 
+						left join course f
+						on f.id = a.first_course_id
+						left join course s
+						on s.id = a.second_course_id""")
+			rows = c.fetchall()
+			return render_template('admin.html', rows=rows)
 
 @app.route("/admin/applicant/edit/<int:applicant_id>",methods=["GET","POST"])
 def applicant_edit(applicant_id):
 	# <int:applicant_id> means we are getting a string value in our url and casting it to int
 	
-	global current_user
+	#global current_user
 
-	current_user = authenticate(request.args.get('admin')) if request.args.get('admin') else False
+	#current_user = authenticate(request.args.get('admin')) if request.args.get('admin') else False
 	
-	if not current_user:
-		return redirect(url_for('login',login_error="Please login to access admin dashboard"))
+	#if not current_user:
+	#	return redirect(url_for('login',login_error="Please login to access admin dashboard"))
 	
 
 	conn = sqlite3.connect(app.config['SQLITE3_DATABASE_URI']) #creating the connecting object
@@ -116,7 +148,7 @@ def applicant_edit(applicant_id):
 	#passing din ng errors. see base.html to know how errors are displayed
 	#python handles variable scopes in a different way
 	if query: 
-		return render_template('applicant_edit.html',query=query,courses=courses,errors=errors,success=success,admin=current_user[3]) 
+		return render_template('applicant_edit.html',query=query,courses=courses,errors=errors,success=success) 
 	else:
 		return abort(404)
 

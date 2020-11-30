@@ -27,8 +27,7 @@ with conn:
 		create table Admin(
 			id INTEGER PRIMARY KEY AUTOINCREMENT,
 			username TEXT UNIQUE NOT NULL,
-			password TEXT NOT NULL,
-			login_status INTEGER NOT NULL DEFAULT 0
+			password TEXT NOT NULL
 		)
 		""")
 
@@ -45,6 +44,13 @@ with conn:
 
 			FOREIGN KEY(first_course_id) REFERENCES Course(id),
 			FOREIGN KEY(second_course_id) REFERENCES Course(id)
+		)
+		""")
+
+	c.execute("""
+		create table Session(
+			id INTEGER PRIMARY KEY CHECK (id = 1),
+			username TEXT UNIQUE NOT NULL
 		)
 		""")
 

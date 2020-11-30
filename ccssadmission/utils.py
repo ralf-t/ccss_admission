@@ -1,62 +1,43 @@
-from ccssadmission import app
 import sqlite3
 
+class CurrentUser:
+	self.username = None
+	self.db_uri = ['admissions.db']
+	self.conn = sqlite3.connect(self.db_uri)
+	self.c = self.conn.cursor()
 
-def authenticate(admin_id):
+	def init(self,username=None):
+		with self.conn:
+			self.c.execute("delete from Session") #truncate table on every object instatiate
 
-	conn = sqlite3.connect(app.config['SQLITE3_DATABASE_URI'])
-	c = conn.cursor() 
-
-	with conn:
+		self.username = username
 		
-		c.execute("select * from Admin where id=?",(admin_id,))
-		admin = c.fetchone()
+		if self.username:
+			self.session_login()
 
-		if admin and admin[3] != 0: #if user exists and is is logged in
-			current_user=admin
-			return current_user
-		
-		else: 
+	def session_login(self):
+		with self.conn:
+			self.c.execute("insert into Session (username) values (?)",(self.username,)) #insert user
+
+	def session_logout(self):
+		with self.conn:
+			self.c.execute("delete from Session") #truncate table
+
+	@staticmethod
+	def authenticate():
+		with self.conn:
+			self.c.execute("select username from Session where username = ?") 
+
+		rows = self.c.fetchall() #grab rows
+
+		if len(rows) == 1: #if table is empty, no one is logged in
+
+			row = rows[0] #username index
+
+			if row[0] == self.username: #check if 
+				return True
+			else:
+				return False 
+		else:
 			return False
 
-def login(admin_id):
-
-	conn = sqlite3.connect(app.config['SQLITE3_DATABASE_URI'])
-	c = conn.cursor() 
-
-	with conn:
-		c.execute("select * from Admin where id=?",(admin_id,))
-
-		if c.fetchone(): #if user exists, set login status to 1 
-			c.execute("""
-				update Admin
-				set login_status=1
-				where id=?
-				""",(admin_id,))
-			
-			current_user=c.fetchone()
-			return current_user
-			
-		else: 
-			return False
-
-def logout(admin_id):
-
-	conn = sqlite3.connect(app.config['SQLITE3_DATABASE_URI'])
-	c = conn.cursor() 
-
-	with conn:
-		c.execute("select * from Admin where id=?",(admin_id,))
-
-		if c.fetchone(): #if user exists, login status to 0 then redirect to login page
-			c.execute("""
-				update Admin
-				set login_status=0
-				where id=?
-				""",(admin_id,))
-			
-			current_user = None
-			return current_user
-
-		else: 
-			return False

@@ -41,10 +41,23 @@ def results():
 
 	return render_template('results.html')
 
-@app.route("/results/lrn")
-def results_lrn():
-	#edit
-	return render_template('results_lrn.html')
+@app.route("/results/<int:lrn>")
+def results_lrn(lrn):
+	conn = sqlite3.connect(app.config['SQLITE3_DATABASE_URI'])
+	c = conn.cursor()
+
+	with conn:
+		c.execute("SELECT * FROM Applicant WHERE lrn=?",(lrn,))
+		applicant = c.fetchone()
+
+		c.execute("SELECT * FROM Course WHERE Course.id=(SELECT first_course_id FROM Applicant WHERE lrn=?)",(lrn,))
+		course1 = c.fetchone()
+
+		c.execute("Select * FROM Course WHERE Course.id=(SELECT second_course_id FROM Applicant WHERE lrn=?)",(lrn,))
+		course2 = c.fetchone()
+		
+	#first_or_404 check
+	return render_template('results_lrn.html', applicant=applicant, course1=course1, course2=course2)
 
 @app.route("/login",methods=["GET","POST"])
 def login():

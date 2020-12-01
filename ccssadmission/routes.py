@@ -38,8 +38,23 @@ def apply():
 
 @app.route("/results",methods=["GET","POST"])
 def results():
+	errors = []
+	error = request.args.get('error')
 
-	return render_template('results.html')
+
+	conn = sqlite3.connect(app.config['SQLITE3_DATABASE_URI'])
+		c = conn.cursor() 
+		with conn:
+			c.execute("select lrn from Applicant where lrn=?",(lrn))
+			user = c.fetchone()
+
+		if user:
+			global current_user
+			current_user = CurrentUser(user[0])
+			return redirect(url_for('results_lrn',success=success))
+		else:
+			errors = ['Invalid lrn']
+	return render_template('results.html',errors=errors)
 
 @app.route("/results/lrn")
 def results_lrn():

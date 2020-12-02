@@ -39,24 +39,20 @@ def apply():
 @app.route("/results",methods=["GET","POST"])
 def results():
 	errors = [] 
-	error = request.args.get('error') #not needed
-
-	#needs to handle POST request para makuha yung lrn
-
-	#indent properly 
+	
+	if request.method == 'POST':
+		lrn = request.form['lrn']
+	
 	conn = sqlite3.connect(app.config['SQLITE3_DATABASE_URI'])
-		c = conn.cursor() 
-		with conn:
-			c.execute("select lrn from Applicant where lrn=?",(lrn)) #wrong tuple syntax. the logic is right but walang magiging variable yung lrn dahil hindi prinocess yung form
+	c = conn.cursor() 
+	with conn:
+		c.execute("SELECT lrn FROM Applicant WHERE lrn=?",(lrn)) 
  			user = c.fetchone()
 
 		if user:
-			global current_user #not needed
-			current_user = CurrentUser(user[0]) #not needed
-			return redirect(url_for('results_lrn',success=success)) #success=success not needed
+			return redirect(url_for('results_lrn')) 
 		else:
 			errors = ['LRN is incorrect or does not exist']
-
 	return render_template('results.html',errors=errors)
 
 @app.route("/results/<int:lrn>")

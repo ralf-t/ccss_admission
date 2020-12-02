@@ -47,7 +47,7 @@ def results():
 	c = conn.cursor() 
 	with conn:
 		c.execute("SELECT lrn FROM Applicant WHERE lrn=?",(lrn)) 
- 			user = c.fetchone()
+ 		user = c.fetchone()
 
 		if user:
 			return redirect(url_for('results_lrn')) 

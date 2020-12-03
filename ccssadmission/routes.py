@@ -38,8 +38,22 @@ def apply():
 
 @app.route("/results",methods=["GET","POST"])
 def results():
+	errors = [] 
+	
+	if request.method == 'POST':
+		lrn = request.form['lrn']
+	
+		conn = sqlite3.connect(app.config['SQLITE3_DATABASE_URI'])
+		c = conn.cursor() 
+		with conn:
+			c.execute('SELECT lrn FROM Applicant WHERE lrn=?',(lrn,)) 
+			user = c.fetchone()
 
-	return render_template('results.html')
+			if user:
+				return redirect(url_for('results_lrn', lrn=lrn)) 
+			else:
+				errors = ['LRN is incorrect or does not exist']
+	return render_template('results.html',errors=errors)
 
 @app.route("/results/<int:lrn>")
 def results_lrn(lrn):

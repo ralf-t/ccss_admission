@@ -192,4 +192,48 @@ def applicant_delete(applicant_id):
 	if not CurrentUser.authenticate():
 		return redirect(url_for('login'))
 
-	return redirect(url_for('admin'))
+
+	conn = sqlite3.connect(app.config['SQLITE3_DATABASE_URI']) #creating the connecting object
+	c = conn.cursor() #setting cursor
+
+	query = None #variable to hold our result
+	courses = None
+	
+	errors = []
+	success = None
+
+	if request.method == 'POST':
+		lrn = request.form['lrn']
+		first_name = request.form['first_name']
+		last_name = request.form['last_name']
+		shs_avg = request.form['shs_avg']
+		status = request.form['status']
+		first_course_id = request.form['first_course_id']
+		second_course_id = request.form['second_course_id'] if request.form['second_course_id'] != 'Select course' else None
+
+		with conn:	
+			c.execute("pragma foreign_keys=ON") 
+			c.execute("select * from Applicant where lrn=? and id !=? ",(lrn,applicant_id,))
+			
+			if c.fetchall():
+				errors.append('LRN is registered by another applicant')
+
+			if not errors:
+				c.execute("""
+					delete from Applicant
+					set lrn=?, first_name=?, last_name=?, shs_avg=?, status=?, first_course_id=?, second_course_id=?
+					where id=?
+					""",(lrn,first_name,last_name,shs_avg,status,first_course_id,second_course_id,applicant_id,))
+
+				success = f"Details delete for applicant {applicant_id}"
+
+	with conn:	
+		c.execute("select * from Applicant where id=?",(applicant_id,)) 
+		query = c.fetchone() 
+		c.execute("select * from Course")
+		courses = c.fetchall()
+
+	if query: 
+		return redirect(url_for('admin'),query=query,courses=courses,errors=errors,success=success) 
+	else:
+		return abort(404)

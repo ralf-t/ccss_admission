@@ -188,6 +188,7 @@ def applicant_edit(applicant_id):
 					""",(lrn,first_name,last_name,shs_avg,status,first_course_id,second_course_id,applicant_id,))
 
 				success = f"Details updated for applicant {applicant_id}"
+				return(redirect(url_for('admin',success=success)))
 
 	with conn:	# to safely interact with our resource and avoids the burden of manually closing resources.
 		c.execute("select * from Applicant where id=?",(applicant_id,)) #use ? for safe db transaction. applicant_id variable is taken from url parameters
@@ -212,6 +213,10 @@ def applicant_delete(applicant_id):
 	global current_user
 	if not CurrentUser.authenticate():
 		return redirect(url_for('login'))
+
+	conn = sqlite3.connect(app.config['SQLITE3_DATABASE_URI'])
+	c = conn.cursor()
+
 	with conn:
 		c.execute("""
 				DELETE FROM Applicant WHERE id=? 

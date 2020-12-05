@@ -196,28 +196,10 @@ def applicant_delete(applicant_id):
 	conn = sqlite3.connect(app.config['SQLITE3_DATABASE_URI']) 
 	c = conn.cursor() 
 
-	query = None 
-	courses = None
-	
-	errors = []
-	success = None
 
-	if request.method == 'POST':
-		lrn = request.form['lrn']
-		first_name = request.form['first_name']
-		last_name = request.form['last_name']
-		shs_avg = request.form['shs_avg']
-		status = request.form['status']
-		first_course_id = request.form['first_course_id']
-		second_course_id = request.form['second_course_id'] if request.form['second_course_id'] != 'Select course' else None
-
-		with conn:	
-			c.execute("pragma foreign_keys=ON") 
-			c.execute("select * from Applicant where lrn=? and id=? ",(lrn,applicant_id,))
-			
-			c.execute("""DELETE from Applicant where lrn=?, first_name=?, last_name=?, shs_avg=?, status=?, 
-				first_course_id=?, second_course_id=?, id=?""",(lrn,first_name,last_name,shs_avg,status,first_course_id,second_course_id,applicant_id,))
-			success = f"Details delete for applicant {applicant_id}"
-
-	if query: 
-		return redirect(url_for('admin'),query=query,courses=courses,errors=errors,success=success) 
+	with conn:
+		c.execute("""
+				DELETE FROM Applicant WHERE id=? 
+				""",(applicant_id,))
+		
+	return redirect(url_for('admin')) 

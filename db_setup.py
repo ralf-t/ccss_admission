@@ -60,22 +60,39 @@ with conn:
 		('BSEMC-DA'),
 		('BSEMC-GD'),
 		('BSIS'),
-		('BSIT')
+		('BSIT'),
+		('BSCOMSHOP'),
+		('BSHACKING'),
+		('BSAI'),
+		('BSML'),
+		('BSDOTA')
 		""")
 
 	c.execute("""
 		insert into Admin (username,password) values
 		('superuser','finalsproject11111'),
-		('profmoraga','finalsproject11111')
+		('profmoraga','finalsproject11111'),
+		('ralf','finalsproject11111'),
+		('jev','finalsproject11111'),
+		('tiosan','finalsproject11111'),
+		('anselm','finalsproject11111'),
+		('renz','finalsproject11111'),
+		('root','finalsproject11111'),
+		('admin','finalsproject11111'),
+		('sysAd','finalsproject11111')
 		""")
 
 with conn:
 	c.execute("""
-		insert into Applicant (lrn,first_name,last_name,shs_avg,first_course_id,second_course_id) values
-		(22384776850,'Ryujin','Shin',99,1,NULL),
-		(10000000000,'Tiff','Uy',86,3,2),
-		(15000000000,'Phil','Health',89,4,NULL),
-		(85099057129,'Lightning','McQueen',95,5,3),
-		(40414670995,'Juan','Cruz',92,2,4)
+		insert into Applicant (lrn,first_name,last_name,shs_avg,first_course_id,second_course_id, status) values
+		(22384776850,'Ryujin','Shin',99,1,NULL,'Admitted'),
+		(10000000000,'Tiff','Uy',86,3,2,'Godbless'),
+		(15000000000,'Phil','Health',89,4,NULL,'Godbless'),
+		(85099057129,'Lightning','McQueen',95,2,6,'Godbless'),
+		(40414670995,'Juan','Cruz',92,3,10,'Applied'),
+		(92295973851,'Mercy','MacKenzie',88,4,NULL,'Admitted'),
+		(23162636449,'Seka','Grieve',95,5,8,'Applied'),
+		(46781971358,'Phillida','Overshott',91,6,NULL,'Waitlisted'),
+		(44918379472,'Elane','Sprigging',81,7,10,'Admitted'),
+		(27751187461,'Muffin','Greenhall',88,8,9,'Waitlisted')
 		""")
-

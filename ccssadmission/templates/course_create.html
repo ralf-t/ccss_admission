@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %} 
+	<div class="columns">
+		<div class="column is-offset-4 is-4">
+			<div class="box mt-5">
+				<div class="container">
+					<h1 class="title has-text-centered">Add Course</h1>
+				
+					<div class="container">
+						<form action="" method="POST">
+							<div class="field">
+							  	<label class="label">Name</label>
+								<div class="control">
+									<input class="input" type="text" placeholder="e.g. BSIT" name="course_name" maxlength="11" required>
+							  	</div>
+							</div>
+					
+							<div class="field is-grouped is-grouped-right pt-5">
+							  	<p class="control">
+							  		<a href="{{ url_for('course') }}" class="button is-light">Cancel</a>
+							  	</p>
+							  	<p class="control">
+							  		<button class="button is-primary" type="submit">
+								  	  	Add course
+							  		</button>
+							  	</p>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock content %}

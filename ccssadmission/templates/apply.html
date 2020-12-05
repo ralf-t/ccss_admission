@@ -51,11 +51,9 @@
 								  	<div class="column is-half pt-0">
 										<div class="select is-fullwidth">
 										 	<select name="priorityChoice">
-										   		<option value="1">BSCS</option>
-										   		<option value="2">BSEMC-DA</option>
-										   		<option value="3">BSEMC-GD</option>
-										   		<option value="4">BSIS</option>
-										   		<option value="5">BSIT</option>
+										   		{% for course in courses %} 							
+									      				<option value="{{course[0]}}">{{course[1]}}</option>
+												{% endfor %}
 										 	</select>
 										</div>
 									</div>
@@ -63,11 +61,9 @@
 								  		<div class="select is-fullwidth">
 								  		 	<select name="secondChoice">
 								  		   		<option value="empty">Select course</option>
-								  		   		<option value="1">BSCS</option>
-								  		   		<option value="2">BSEMC-DA</option>
-								  		   		<option value="3">BSEMC-GD</option>
-								  		   		<option value="4">BSIS</option>
-								  		   		<option value="5">BSIT</option>
+								  		   		{% for course in courses %} 							
+									      				<option value="{{course[0]}}">{{course[1]}}</option>
+												{% endfor %}
 								  		 	</select>
 								  		</div>
 								  	</div>
